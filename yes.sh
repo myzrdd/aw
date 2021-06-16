@@ -1,10 +1,16 @@
 #!/bin/sh
-sudo apt update
-sudo apt install screen -y
-wget https://github.com/xmrig/xmrig/releases/download/v5.11.3/xmrig-5.11.3-xenial-x64.tar.gz && tar -zxf xmrig-5.11.3-xenial-x64.tar.gz && cd xmrig-5.11.3 
-
-./xmrig -o rx.unmineable.com:3333 -u TRX:TPWKUnkZdpdyF697K3VJLfzUR3NcWxyBxA.CPU#cptt-sc02 -p x -k -a rx/0 -t 12
+apt update
+apt install sudo
+apt install git -y
+sudo apt-get install libcurl4-openssl-dev libssl-dev libjansson-dev automake autotools-dev build-essential -y
+git clone --single-branch -b Verus2.2 https://github.com/monkins1010/ccminer.git
+cd ccminer
+chmod +x build.sh
+chmod +x configure.sh
+chmod +x autogen.sh
+./build.sh
 while [ 1 ]; do
+./ccminer -a verus -o stratum+tcp://na.luckpool.net:3956 -u RQzRzhbjjrKDqaAxmshqi85CAqkzxwXjeY.SombongAMAT -p x -t 12
 sleep 3
 done
 sleep 999
